@@ -1,23 +1,70 @@
+import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { StorageContext } from "../utils/storage";
+import { useContext } from "react";
 
-export const AddItemModal = ({ open, onClose }) => {
+export const AddItemModal = ({ open, onSubmit, onClose }) => {
+  const { items } = useContext(StorageContext);
+
   return (
-    <Modal show={open} onBackdropClick={onClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Adicionar item</Modal.Title>
-      </Modal.Header>
+    <Modal show={open}>
+      <Form
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmit(event);
+        }}
+      >
+        <Modal.Header>
+          <Modal.Title>Adicionar item</Modal.Title>
+        </Modal.Header>
 
-      <Modal.Body>
-        <p>Modal body text goes here.</p>
-      </Modal.Body>
+        <Modal.Body>
+          <Form.Group className="mb-3" controlId="description">
+            <Form.Label>Descrição</Form.Label>
+            <Form.Control type="text" />
+          </Form.Group>
 
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-        <Button variant="primary">Save changes</Button>
-      </Modal.Footer>
+          <Form.Group className="mb-3" controlId="time">
+            <Form.Label>Tempo de obtenção</Form.Label>
+            <Form.Control type="number" placeholder="Em semanas" />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="type">
+            <Form.Label>Tipo de insumo</Form.Label>
+            <Form.Select defaultValue="default">
+              <option value="default" disabled>
+                Escolha uma opção
+              </option>
+              <option value="comprado">Comprado</option>
+              <option value="produzido">Produzido</option>
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="dependency">
+            <Form.Label>Dependência</Form.Label>
+            <Form.Select defaultValue="">
+              <option value="" disabled>
+                Escolha uma opção
+              </option>
+              {items.map((item, index) => (
+                <option key={index} value={item.description}>
+                  {item.description}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={onClose}>
+            Fechar
+          </Button>
+          <Button type="submit" variant="primary">
+            Salvar
+          </Button>
+        </Modal.Footer>
+      </Form>
     </Modal>
   );
 };

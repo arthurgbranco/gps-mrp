@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Nav from "react-bootstrap/Nav";
+import { StorageContext } from "../utils/storage";
 import { AddItemModal } from "./AddItemModal";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { addItem } = useContext(StorageContext);
 
   return (
     <>
@@ -30,7 +33,22 @@ export const Header = () => {
         </Nav.Item>
       </Nav>
 
-      <AddItemModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <AddItemModal
+        open={isModalOpen}
+        onSubmit={(event) => {
+          const { description, time, type, dependency } = event.target.elements;
+
+          addItem({
+            description: description.value,
+            time: +time.value,
+            type: type.value,
+            dependency: dependency.value !== "" ? dependency.value : null,
+          });
+
+          setIsModalOpen(false);
+        }}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 };
