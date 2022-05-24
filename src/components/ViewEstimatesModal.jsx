@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { StorageContext } from "../utils/storage";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { mrp } from "../utils/mrp";
 
