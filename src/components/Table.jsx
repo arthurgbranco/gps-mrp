@@ -4,6 +4,7 @@ import { StorageContext } from "../utils/storage";
 
 export const BodyTable = () => {
   const { items } = useContext(StorageContext);
+  console.log(items);
 
   return (
     <Table>
@@ -11,8 +12,8 @@ export const BodyTable = () => {
         <tr>
           <th>#</th>
           <th>Descrição</th>
-          <th>Tempo de obtenção</th>
-          <th>Tipo de insumo</th>
+          <th>Lead time</th>
+          <th>Estoque inicial</th>
           <th>Dependência</th>
         </tr>
       </thead>

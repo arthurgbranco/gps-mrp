@@ -26,7 +26,7 @@ export const AddItemModal = ({ open, onSubmit, onClose }) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="time">
-            <Form.Label>Tempo de obtenção</Form.Label>
+            <Form.Label>Lead time</Form.Label>
             <Form.Control type="number" placeholder="Em semanas" />
           </Form.Group>
 
@@ -41,6 +41,11 @@ export const AddItemModal = ({ open, onSubmit, onClose }) => {
             </Form.Select>
           </Form.Group>
 
+          <Form.Group className="mb-3" controlId="stock">
+            <Form.Label>Estoque inicial</Form.Label>
+            <Form.Control type="number" />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="dependency">
             <Form.Label>Dependência</Form.Label>
             <Form.Select defaultValue="">
@@ -48,7 +53,7 @@ export const AddItemModal = ({ open, onSubmit, onClose }) => {
                 Escolha uma opção
               </option>
               {items.map((item, index) => (
-                <option key={index} value={item.description}>
+                <option key={index} value={item.id}>
                   {item.description}
                 </option>
               ))}

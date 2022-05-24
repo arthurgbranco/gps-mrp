@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import Nav from "react-bootstrap/Nav";
 import { StorageContext } from "../utils/storage";
 import { AddItemModal } from "./AddItemModal";
+import { ViewEstimatesModal } from "./ViewEstimatesModal";
 
 export const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEstimatesModalOpen, setIsEstimatesModalOpen] = useState(false);
 
   const { addItem } = useContext(StorageContext);
 
@@ -17,9 +20,11 @@ export const Header = () => {
 
           switch (selectedKey) {
             case "add-item":
-              setIsModalOpen(true);
+              setIsAddModalOpen(true);
               break;
-
+            case "view-estimates":
+              setIsEstimatesModalOpen(true);
+              break;
             default:
               break;
           }
@@ -34,20 +39,27 @@ export const Header = () => {
       </Nav>
 
       <AddItemModal
-        open={isModalOpen}
+        open={isAddModalOpen}
         onSubmit={(event) => {
-          const { description, time, type, dependency } = event.target.elements;
+          const { description, time, stock, type, dependency } =
+            event.target.elements;
 
           addItem({
+            id: uuidv4(),
             description: description.value,
-            time: +time.value,
+            time: parseInt(time.value),
+            stock: parseInt(stock.value),
+            dependency: dependency.value,
             type: type.value,
-            dependency: dependency.value !== "" ? dependency.value : null,
           });
 
-          setIsModalOpen(false);
+          setIsAddModalOpen(false);
         }}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => setIsAddModalOpen(false)}
+      />
+      <ViewEstimatesModal
+        open={isEstimatesModalOpen}
+        onClose={() => setIsEstimatesModalOpen(false)}
       />
     </>
   );
