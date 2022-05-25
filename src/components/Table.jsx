@@ -14,6 +14,7 @@ export const BodyTable = () => {
           <th>Descrição</th>
           <th>Lead time</th>
           <th>Estoque inicial</th>
+          <th>Tipo</th>
           <th>Dependência</th>
         </tr>
       </thead>
@@ -23,6 +24,7 @@ export const BodyTable = () => {
             <td>{index + 1}</td>
             <td>{item.description}</td>
             <td>{item.time} semanas</td>
+            <td>{item.stock}</td>
             <td>{item.type === "comprado" ? "Comprado" : "Produzido"}</td>
             <td>{item.dependency ?? "Nenhuma"}</td>
           </tr>
