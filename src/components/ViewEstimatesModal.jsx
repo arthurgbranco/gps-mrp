@@ -29,7 +29,7 @@ export const ViewEstimatesModal = ({ open, onSubmit, onClose }) => {
   };
 
   const mrpEntries =
-    stock && lotSize && necessity
+    stock !== null && lotSize !== null && necessity !== null
       ? mrp(stock, new Array(10).fill(necessity), lotSize)
       : null;
 
@@ -68,7 +68,7 @@ export const ViewEstimatesModal = ({ open, onSubmit, onClose }) => {
             <Form.Control type="number" onChange={onChangeLotSize} />
           </Form.Group>
 
-          {stock && lotSize && necessity ? (
+          {stock !== null && lotSize !== null && necessity !== null ? (
             <Table bordered>
               <thead>
                 <tr>

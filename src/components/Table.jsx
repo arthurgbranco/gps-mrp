@@ -26,7 +26,11 @@ export const BodyTable = () => {
             <td>{item.time} semanas</td>
             <td>{item.stock}</td>
             <td>{item.type === "comprado" ? "Comprado" : "Produzido"}</td>
-            <td>{item.dependency ?? "Nenhuma"}</td>
+            <td>
+              {item.dependency
+                ? items.find((i) => i.id === item.dependency).description
+                : "Nenhuma"}
+            </td>
           </tr>
         ))}
       </tbody>
